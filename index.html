@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>VIN-HOADON – Vay thấu chi tín chấp hóa đơn trực tuyến</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --b: #1769FF;
+            --n: #123B85;
+            --m: #EAF4FF;
+            --l: #D6E6FF;
+            --t: #334155;
+            --mu: #64748B;
+            color-scheme: light;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, system-ui, sans-serif;
+            color: var(--n);
+            background: linear-gradient(135deg, #F4F9FF, #EAF4FF 50%, #D9EAFF)
+        }
+
+        h1,
+        p,
+        ul {
+            margin: 0;
+            padding: 0
+        }
+
+        ul {
+            list-style: none
+        }
+
+        .wrap {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 16px 40px
+        }
+
+        .logo {
+            width:200px;
+            height: auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            display: block
+        }
+
+        .main {
+            display: grid;
+            gap: 20px
+        }
+
+        .col {
+            display: grid;
+            gap: 20px;
+            align-content: start
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(23, 105, 255, .06);
+            padding: 20px
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center
+        }
+
+        .illus {
+            width: 160px;
+            height: 140px;
+            flex-shrink: 0
+        }
+
+        .illus img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .divider {
+            display: none;
+            width: 1px;
+            align-self: stretch;
+            background: var(--l)
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.25
+        }
+
+        .ben {
+            display: grid;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--t);
+            text-align: left
+        }
+
+        .ben li {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .tick {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--b);
+            color: #fff
+        }
+
+        .tick svg {
+            width: 12px;
+            height: 12px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid var(--l)
+        }
+
+        .tab {
+            margin-bottom: -1px;
+            padding: 0 0 12px;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            background: none;
+            color: var(--mu);
+            font: 600 14px Inter, sans-serif;
+            cursor: pointer
+        }
+
+        .tab.on {
+            color: var(--n);
+            border-bottom-color: var(--b)
+        }
+
+        .items {
+            display: none;
+            gap: 14px;
+            margin-top: 16px
+        }
+
+        .items.on {
+            display: grid
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 6px 8px
+        }
+
+        .num {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--b);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .ibox {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: var(--m);
+            border: 1px solid var(--l);
+            color: var(--b)
+        }
+
+        .item p:first-child {
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        .item p+p {
+            margin-top: 2px;
+            font-size: 12px;
+            color: var(--mu)
+        }
+
+        .aside {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 16px;
+            align-self: start
+        }
+
+        .lender {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #1769FF, #0F4FCC);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700
+        }
+
+        .vp {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .vp img {
+            width: 100%;
+            height: 30px;
+            width: auto;
+            display: block
+        }
+
+        .infos {
+            display: grid;
+            gap: 12px
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid var(--l);
+            border-radius: 12px;
+            background: #F6FAFF
+        }
+
+        .ring {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid rgba(23, 105, 255, .7);
+            color: var(--b)
+        }
+
+        .ring svg {
+            width: 16px;
+            height: 16px
+        }
+
+        .info p:first-child {
+            font-size: 12px;
+            color: var(--mu)
+        }
+
+        .info p+p {
+            font-size: 15px;
+            font-weight: 700
+        }
+
+        .agree {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding-top: 4px;
+            font-size: 12px;
+            color: var(--t)
+        }
+
+        .agree input {
+            width: 16px;
+            height: 16px;
+            margin: 1px 0 0;
+            accent-color: var(--b)
+        }
+
+        .agree a {
+            color: var(--b);
+            font-weight: 600;
+            text-decoration: none
+        }
+
+        .cta {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #1769FF, #0F4FCC);
+            color: #fff;
+            font: 700 14px Inter, sans-serif;
+            letter-spacing: .04em;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(23, 105, 255, .22)
+        }
+
+        .cta svg {
+            position: absolute;
+            right: 16px;
+            width: 20px;
+            height: 20px
+        }
+
+        @media(min-width:640px) {
+            .card {
+                padding: 24px
+            }
+
+            .hero {
+                flex-direction: row;
+                gap: 28px;
+                text-align: left
+            }
+
+            .illus {
+                width: 192px;
+                height: 160px
+            }
+
+            .divider {
+                display: block
+            }
+
+            h1 {
+                font-size: 26px
+            }
+        }
+
+        @media(min-width:1024px) {
+            .main {
+                grid-template-columns: 1.9fr 1fr;
+                gap: 24px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="logo"><img src="img/Vis-Logo-VIN-HOADON.png" alt="VIN-HOADON"></div>
+        <main class="main">
+            <div class="col">
+                <section class="card hero">
+                    <div class="illus"><img src="img/img1.png" alt=""></div>
+                    <div class="divider"></div>
+                    <div>
+                        <h1>Vay thấu chi tín chấp<br>hóa đơn trực tuyến</h1>
+                        <ul class="ben">
+                            <li><span class="tick"><i data-lucide="check"></i></span>Hạn mức thấu chi lên đến 200 triệu
+                                đồng.</li>
+                            <li><span class="tick"><i data-lucide="check"></i></span>Lãi suất chỉ từ 1.7%/tháng.</li>
+                            <li><span class="tick"><i data-lucide="check"></i></span>Không tài sản đảm bảo.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="tabs" role="tablist">
+                        <button class="tab on" data-t="a" role="tab">Hồ sơ cần chuẩn bị</button>
+                        <button class="tab" data-t="b" role="tab">Quy trình vay vốn</button>
+                    </div>
+                    <ul class="items on" id="a">
+                        <li class="item"><span class="num">1</span><span class="ibox"><i
+                                    data-lucide="file-text"></i></span>
+                            <div>
+                                <p>Giấy tờ pháp lý doanh nghiệp</p>
+                                <p>Đăng ký kinh doanh (ĐKKD) định dạng PDF.</p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">2</span><span class="ibox"><i
+                                    data-lucide="contact"></i></span>
+                            <div>
+                                <p>Thông tin người đại diện pháp luật, phụ trách kế toán</p>
+                                <p>Ảnh chụp CCCD.</p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">3</span><span class="ibox"><i
+                                    data-lucide="bar-chart-3"></i></span>
+                            <div>
+                                <p>Báo cáo tài chính và dữ liệu liên quan</p>
+                                <p>Báo cáo tài chính năm gần nhất, dữ liệu kế toán hoặc dữ liệu thuế, hóa đơn đầu ra
+                                    trong vòng 90 tháng định dạng XML.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="items" id="b">
+                        <li class="item"><span class="num">1</span><span class="ibox"><i
+                                    data-lucide="file-text"></i></span>
+                            <div>
+                                <p>Truy cập nền tảng</p>
+                                <p>Doanh nghiệp đăng nhập trực tiếp vào hệ thống hóa đơn điện tử Vin-hoadon (hoặc ứng
+                                    dụng/cổng hỗ trợ liên kết của Visnam với VPBank SME).</p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">2</span><span class="ibox"><i
+                                    data-lucide="user-round"></i></span>
+                            <div>
+                                <p>Chọn đăng ký vay</p>
+                                <p>Chọn mục đăng ký Vay thấu chi hóa đơn VPBank trên giao diện phần mềm.</p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">3</span><span class="ibox"><i
+                                    data-lucide="file-check"></i></span>
+                            <div>
+                                <p>Kê khai thông tin</p>
+                                <p>Cung cấp thông tin doanh nghiệp và hóa đơn điện tử đầu ra theo hướng dẫn trên hệ
+                                    thống.</p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">4</span><span class="ibox"><i data-lucide="zap"></i></span>
+                            <div>
+                                <p>Phê duyệt tự động</p>
+                                <p>Hệ thống tự động thẩm định và trả kết quả cấp hạn mức thấu chi chỉ sau 2 - 3 phút.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="item"><span class="num">5</span><span class="ibox"><i
+                                    data-lucide="file-signature"></i></span>
+                            <div>
+                                <p>Ký hợp đồng và giải ngân</p>
+                                <p>Hoàn tất thủ tục xác thực trực tuyến và nhận nguồn vốn bổ sung.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <aside class="card aside">
+                <div class="lender"><span>Tổ chức cho vay</span><span class="vp"><img src="img/VpBank.png"
+                            alt="VPBank"></span></div>
+                <div class="infos">
+                    <div class="info"><span class="ring"><i data-lucide="dollar-sign"></i></span>
+                        <div>
+                            <p>Hạn mức lên tới</p>
+                            <p>200.000.000 VNĐ</p>
+                        </div>
+                    </div>
+                    <div class="info"><span class="ring"><i data-lucide="percent"></i></span>
+                        <div>
+                            <p>Lãi suất</p>
+                            <p>Chỉ từ 1.7%/tháng</p>
+                        </div>
+                    </div>
+                    <div class="info"><span class="ring"><i data-lucide="clock-3"></i></span>
+                        <div>
+                            <p>Thời hạn</p>
+                            <p>Tối đa 12 tháng</p>
+                        </div>
+                    </div>
+                </div>
+                <label class="agree"><input type="checkbox" checked><span>Tôi đồng ý với <a href="#">Điều khoản và Chính
+                            sách sử dụng dịch vụ của Vin-Hoadon</a></span></label>
+                <button class="cta" type="button">ĐĂNG KÝ VAY<i data-lucide="arrow-right"></i></button>
+            </aside>
+        </main>
+    </div>
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('.tab').forEach(function (b) {
+            b.addEventListener('click', function () {
+                document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === b) });
+                document.querySelectorAll('.items').forEach(function (u) { u.classList.toggle('on', u.id === b.dataset.t) });
+            });
+        });
+    </script>
+</body>
+
+</html>
